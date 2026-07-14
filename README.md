@@ -96,7 +96,7 @@ Set these under **Settings → Secrets and variables → Actions**:
 
 | Secret                  | Purpose                                          |
 | ----------------------- | ------------------------------------------------ |
-| `DOCKERHUB_USERNAME`    | Docker Hub username (`hunterevans0`)             |
+| `DOCKER_USERNAME`       | Docker Hub username (`hunterevans0`)             |
 | `DOCKERHUB_TOKEN`       | Docker Hub access token                          |
 | `AWS_ACCESS_KEY_ID`     | AWS access key                                   |
 | `AWS_SECRET_ACCESS_KEY` | AWS secret key                                   |
