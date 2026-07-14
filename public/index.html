@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Events Calendar</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>📅 Campus Events Calendar</h1>
+      <p class="tagline">Add and remove upcoming events for your campus.</p>
+    </header>
+
+    <main class="container">
+      <section class="card form-card">
+        <h2>Add an Event</h2>
+        <form id="event-form">
+          <div class="field">
+            <label for="title">Title <span class="req">*</span></label>
+            <input type="text" id="title" name="title" placeholder="e.g. Guest Lecture" required />
+          </div>
+          <div class="field">
+            <label for="date">Date <span class="req">*</span></label>
+            <input type="date" id="date" name="date" required />
+          </div>
+          <div class="field">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" placeholder="e.g. Room 274" />
+          </div>
+          <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="2" placeholder="Optional details"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Event</button>
+          <p id="form-error" class="error" role="alert"></p>
+        </form>
+      </section>
+
+      <section class="card list-card">
+        <h2>Upcoming Events</h2>
+        <ul id="event-list" class="event-list"></ul>
+        <p id="empty-state" class="empty-state hidden">No events yet. Add one above!</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>ITM 350 Final Project &middot; Hunter Evans</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

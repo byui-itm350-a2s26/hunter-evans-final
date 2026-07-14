@@ -1,0 +1,60 @@
+name: Release (Terraform)
+
+# Release pipeline:
+#   Runs automatically after the "Build and Push" workflow finishes successfully,
+#   and can also be triggered manually. It uses Terraform (Infrastructure as Code)
+#   to provision an EC2 instance that pulls and runs the freshly built image.
+on:
+  workflow_run:
+    workflows: ["Build and Push"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  IMAGE_NAME: hunterevans0/hunter-evnas-final
+
+jobs:
+  terraform:
+    name: Provision EC2 with Terraform
+    # For the automatic trigger, only proceed if the build actually succeeded.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Apply
+        run: |
+          terraform apply -input=false -auto-approve \
+            -var="aws_region=${{ env.AWS_REGION }}" \
+            -var="docker_image=${{ env.IMAGE_NAME }}:latest"
+
+      - name: Show application URL
+        run: |
+          URL=$(terraform output -raw application_url)
+          echo "Application deployed at: $URL"
+          echo "### 🚀 Application URL" >> "$GITHUB_STEP_SUMMARY"
+          echo "$URL" >> "$GITHUB_STEP_SUMMARY"
