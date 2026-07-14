@@ -69,8 +69,8 @@ npm run test:integration
 ## Run with Docker
 
 ```bash
-docker build -t hunterevans0/hunter-evnas-final .
-docker run -p 8080:8080 hunterevans0/hunter-evnas-final
+docker build -t hunterevans0/hunter-evans-final .
+docker run -p 8080:8080 hunterevans0/hunter-evans-final
 # open http://localhost:8080
 ```
 
@@ -83,7 +83,7 @@ Triggered when a pull request is **merged into `main`**. It:
 1. Installs dependencies with `npm ci`
 2. Runs the unit and integration tests
 3. Builds the Docker image and pushes it to Docker Hub
-   (`hunterevans0/hunter-evnas-final:latest` and `:<git-sha>`)
+   (`hunterevans0/hunter-evans-final:latest` and `:<git-sha>`)
 
 ### Release pipeline — `.github/workflows/release.yml`
 Runs automatically **after the build pipeline succeeds**. It uses **Terraform**
@@ -114,7 +114,7 @@ Run it manually if you like:
 ```bash
 cd terraform
 terraform init
-terraform apply -var="docker_image=hunterevans0/hunter-evnas-final:latest"
+terraform apply -var="docker_image=hunterevans0/hunter-evans-final:latest"
 terraform output application_url
 ```
 
@@ -123,7 +123,7 @@ terraform output application_url
 ## Submission links
 
 - **Code base:** https://github.com/byui-itm350-a2s26/hunter-evans-final
-- **Docker image:** https://hub.docker.com/r/hunterevans0/hunter-evnas-final
+- **Docker image:** https://hub.docker.com/r/hunterevans0/hunter-evans-final
 - **Live EC2 URL:** _printed by the release pipeline after it runs_
 
 _ITM 350 Final Project · Hunter Evans_

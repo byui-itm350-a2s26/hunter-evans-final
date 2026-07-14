@@ -19,5 +19,5 @@ variable "instance_type" {
 variable "docker_image" {
   description = "Docker image (with tag) to pull and run on the instance."
   type        = string
-  default     = "hunterevans0/hunter-evnas-final:latest"
+  default     = "hunterevans0/hunter-evans-final:latest"
 }
